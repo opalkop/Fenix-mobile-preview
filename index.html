@@ -1,61 +1,122 @@
 <!doctype html>
 <html lang="pl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#111827">
-<title>FENIX Mobile Studio</title>
-<style>
-:root{font-family:Inter,system-ui,Arial,sans-serif;color:#17202a;background:#eef1f5;--dark:#111827;--accent:#f59e0b;--muted:#64748b;--card:#fff;--line:#e5e7eb}*{box-sizing:border-box}body{margin:0;min-height:100vh;padding-bottom:84px;background:#eef1f5}.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:var(--dark);color:#fff;box-shadow:0 4px 18px #11182733}.brand h1{font-size:1.08rem;margin:2px 0}.eyebrow{margin:0;text-transform:uppercase;letter-spacing:.14em;font-size:.66rem;font-weight:900;color:var(--accent)}.top-action{border:0;border-radius:12px;background:var(--accent);color:var(--dark);font-weight:900;min-height:44px;padding:0 14px}.screen{display:none;max-width:1100px;margin:auto;padding:14px}.screen.active{display:block}.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:0 8px 26px #11182712}.hero{padding:20px;margin-bottom:14px;background:linear-gradient(145deg,#111827,#273449);color:#fff}.hero h2{margin:6px 0;font-size:1.55rem}.hero p{margin:0;color:#d9e1ea}.card{padding:16px;margin-bottom:14px}.card h2,.card h3{margin:4px 0 10px}.muted{color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}.stat{background:#ffffff12;border:1px solid #ffffff1f;border-radius:14px;padding:12px;text-align:center}.stat strong{display:block;font-size:1.2rem}.primary,.secondary,.danger,.module-btn{border:0;border-radius:14px;min-height:48px;padding:0 16px;font-weight:900;cursor:pointer}.primary{background:var(--accent);color:var(--dark)}.secondary{background:#e5e7eb;color:var(--dark)}.danger{background:#fee2e2;color:#991b1b}.button-row{display:flex;gap:10px;flex-wrap:wrap}.button-row>*{flex:1}.project-card{display:grid;gap:12px}.project-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.project-name{font-size:1.2rem;font-weight:900}.progress{height:9px;background:#e5e7eb;border-radius:999px;overflow:hidden}.progress span{display:block;height:100%;width:0;background:var(--accent)}.quick-grid,.module-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.quick,.module{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px;min-height:130px;display:flex;flex-direction:column;justify-content:space-between}.quick strong,.module strong{font-size:1.05rem}.quick span,.module span{color:var(--muted);font-size:.85rem}.module.locked{opacity:.55}.module-btn{background:#111827;color:#fff;margin-top:12px}.list-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-top:1px solid var(--line)}.list-row:first-child{border-top:0}.badge{display:inline-flex;border-radius:999px;padding:5px 9px;background:#fff7dd;color:#8a5700;font-size:.72rem;font-weight:900}.empty{padding:20px;text-align:center;color:var(--muted)}.bottom-nav{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(5,1fr);padding:7px max(8px,env(safe-area-inset-right)) calc(7px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));background:#fff;border-top:1px solid #dbe1e8;box-shadow:0 -8px 24px #11182718}.nav-btn{border:0;background:transparent;min-height:58px;border-radius:13px;font-size:.72rem;font-weight:800;color:#64748b}.nav-btn b{display:block;font-size:1.2rem;margin-bottom:3px}.nav-btn.active{background:#fff4d6;color:#111827}.form-grid{display:grid;gap:12px}label{display:grid;gap:6px;font-size:.82rem;font-weight:900}input,select{width:100%;min-height:46px;border:1px solid #cbd5e1;border-radius:12px;padding:10px 12px;font:inherit;background:#fff}.maze-layout{display:grid;gap:14px}.preview{padding:0;overflow:hidden}.toolbar{display:flex;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line);font-size:.8rem}.canvas-wrap{display:grid;place-items:center;padding:12px;background:#dfe4ea;overflow:auto}canvas{display:block;width:min(100%,620px);height:auto;background:#fff;box-shadow:0 4px 18px #11182722}.sticky-actions{position:sticky;bottom:76px;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px;background:#eef1f5cc;backdrop-filter:blur(8px)}@media(min-width:760px){body{padding-bottom:20px}.bottom-nav{position:sticky;top:0;max-width:1100px;margin:auto;border-radius:0 0 18px 18px}.screen{padding:24px}.maze-layout{grid-template-columns:1.4fr .8fr}.preview{grid-row:span 2}.sticky-actions{position:static}.quick-grid,.module-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <title>FENIX Mobile Studio</title>
+  <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-<header class="topbar"><div class="brand"><p class="eyebrow">FENIX Mobile Studio</p><h1 id="headerTitle">Start</h1></div><button id="headerAction" class="top-action">Nowy projekt</button></header>
+  <header class="topbar">
+    <div><p class="eyebrow">FENIX Mobile Studio · v0.4.0</p><h1 id="headerProject">Projekt</h1></div>
+    <button class="icon-button" data-create-project aria-label="Nowy projekt">＋</button>
+  </header>
 
-<section id="home" class="screen active">
-  <div class="hero"><p class="eyebrow">Mobilne centrum projektowania</p><h2>Twórz na telefonie. Produkuj na PC.</h2><p>Przygotuj projekt i Koszyk Feniksa, a finalną książkę złoży prywatny FENIX Production Studio.</p><div class="stats"><div class="stat"><strong id="statProjects">0</strong><span>projekty</span></div><div class="stat"><strong id="statPages">0</strong><span>strony</span></div><div class="stat"><strong id="statModules">1</strong><span>aktywny moduł</span></div></div></div>
-  <div class="card"><p class="eyebrow">Ostatni projekt</p><div id="recentProject"></div></div>
-  <div class="quick-grid"><button class="quick" data-go="projects"><strong>📚 Projekty</strong><span>Zarządzaj książkami i ich zawartością</span></button><button class="quick" data-go="create"><strong>➕ Utwórz stronę</strong><span>Dodaj nową stronę do aktywnego projektu</span></button><button class="quick" data-go="cart"><strong>🛒 Koszyk</strong><span>Sprawdź kolejność i eksport do PC</span></button><button class="quick" id="quickExport"><strong>💻 Eksport do PC</strong><span>Zapisz plik .fenixmobile</span></button></div>
-</section>
+  <main>
+    <section id="view-home" class="view active">
+      <article class="card hero">
+        <p class="eyebrow">Mobilne centrum projektowania</p>
+        <h2>Twórz na telefonie. Produkuj na PC.</h2>
+        <p>Projektuj strony i przenoś ich receptury do prywatnego FENIX Production Studio.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">Ostatni projekt</p>
+        <h2 id="activeProjectName">—</h2>
+        <p id="activeProjectMeta" class="muted">—</p>
+        <div class="grid two">
+          <button id="homeContinue" class="primary">Kontynuuj tworzenie</button>
+          <button id="homeCart" class="secondary">Otwórz Koszyk</button>
+        </div>
+      </article>
+      <div class="grid two">
+        <button class="tile" data-view="projects"><span>📚</span><strong>Projekty</strong><small>Zarządzaj swoimi książkami</small></button>
+        <button class="tile" data-view="create"><span>➕</span><strong>Utwórz stronę</strong><small>Wybierz moduł i dodaj stronę</small></button>
+        <button class="tile" data-view="cart"><span>🛒</span><strong>Koszyk Feniksa</strong><small>Kolejność i eksport do PC</small></button>
+        <button class="tile" data-view="settings"><span>⚙️</span><strong>Ustawienia</strong><small>Format i język projektu</small></button>
+      </div>
+    </section>
 
-<section id="projects" class="screen"><div class="card"><p class="eyebrow">Biblioteka</p><h2>Twoje projekty</h2><div id="projectList"></div></div></section>
-<section id="create" class="screen"><div class="card"><p class="eyebrow">Dodaj stronę</p><h2>Wybierz moduł</h2><div class="module-grid"><article class="module"><div><strong>🧩 Maze Studio</strong><br><span>Labirynty zapisane jako seed i ustawienia</span></div><button class="module-btn" data-open-module="maze">Otwórz</button></article><article class="module locked"><div><strong>🎨 Coloring Studio</strong><br><span>W przygotowaniu</span></div><button class="module-btn" disabled>Wkrótce</button></article><article class="module locked"><div><strong>✏️ Tracing Studio</strong><br><span>W przygotowaniu</span></div><button class="module-btn" disabled>Wkrótce</button></article><article class="module locked"><div><strong>🧠 Logic Studio</strong><br><span>W przygotowaniu</span></div><button class="module-btn" disabled>Wkrótce</button></article></div></div></section>
-<section id="cart" class="screen"><div class="card"><p class="eyebrow">Koszyk Feniksa</p><h2 id="cartHeading">0 stron</h2><div id="cartList"></div><div class="button-row" style="margin-top:14px"><button id="exportMobile" class="primary">Przenieś do FENIX PC</button><button id="clearCart" class="danger">Wyczyść</button></div></div></section>
-<section id="settings" class="screen"><div class="card"><p class="eyebrow">Ustawienia</p><h2>FENIX Mobile</h2><div class="form-grid"><label>Domyślny format<select id="defaultFormat"><option value="8.5x11">8.5 × 11 cali</option><option value="A4">A4</option></select></label><label>Domyślny język stron<select id="defaultLanguage"><option value="en">Angielski</option><option value="pl">Polski</option></select></label><button id="saveSettings" class="primary">Zapisz ustawienia</button></div></div></section>
+    <section id="view-projects" class="view">
+      <article class="card">
+        <p class="eyebrow">Biblioteka projektów</p>
+        <h2>Twoje projekty</h2>
+        <button class="primary" data-create-project>Nowy projekt</button>
+        <div id="projectsList"></div>
+      </article>
+    </section>
 
-<section id="maze" class="screen"><div class="maze-layout"><div class="card preview"><div class="toolbar"><span id="mazeStatus">Gotowy</span><span id="seedLabel">Seed: —</span></div><div class="canvas-wrap"><canvas id="mazeCanvas" width="900" height="1165"></canvas></div></div><div class="card"><p class="eyebrow">Maze Studio</p><h2>Parametry labiryntu</h2><div class="form-grid"><label>Kolumny<input id="cols" type="number" min="6" max="45" value="18"></label><label>Wiersze<input id="rows" type="number" min="8" max="58" value="24"></label><label>Grubość ścian<input id="lineWidth" type="range" min="2" max="12" value="5"></label><label>Tytuł strony<input id="pageTitle" type="text" value="Find the Way!" maxlength="80"></label></div></div><div class="sticky-actions"><button id="newVariant" class="secondary">Nowy wariant</button><button id="addToCart" class="primary">Dodaj do Koszyka</button></div></div></section>
+    <section id="view-create" class="view">
+      <article class="card">
+        <p class="eyebrow">Biblioteka modułów</p>
+        <h2>Dodaj stronę</h2>
+        <div class="grid two">
+          <button class="tile" data-view="maze"><span>🧩</span><strong>Maze Studio</strong><small>Aktywny moduł</small></button>
+          <button class="tile" disabled><span>🎨</span><strong>Coloring Studio</strong><small>Wkrótce</small></button>
+          <button class="tile" disabled><span>✏️</span><strong>Tracing Studio</strong><small>Wkrótce</small></button>
+          <button class="tile" disabled><span>🧠</span><strong>Logic Studio</strong><small>Wkrótce</small></button>
+        </div>
+      </article>
+    </section>
 
-<nav class="bottom-nav"><button class="nav-btn active" data-go="home"><b>⌂</b>Start</button><button class="nav-btn" data-go="projects"><b>▣</b>Projekty</button><button class="nav-btn" data-go="create"><b>＋</b>Utwórz</button><button class="nav-btn" data-go="cart"><b>🛒</b>Koszyk</button><button class="nav-btn" data-go="settings"><b>⚙</b>Ustawienia</button></nav>
+    <section id="view-cart" class="view">
+      <article class="card">
+        <p class="eyebrow">Koszyk Feniksa</p>
+        <h2 id="cartProjectName">Projekt</h2>
+        <p id="cartCount" class="muted">0 stron</p>
+        <div id="cartList"></div>
+        <div class="grid two">
+          <button id="exportProject" class="primary">Przenieś do FENIX PC</button>
+          <button id="clearCart" class="danger">Wyczyść Koszyk</button>
+        </div>
+      </article>
+    </section>
 
-<script>
-"use strict";
-const KEYS={projects:"fenix-mobile-projects-v1",active:"fenix-mobile-active-project-v1",settings:"fenix-mobile-settings-v1"};
-const uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random();
-const load=(k,f)=>{try{return JSON.parse(localStorage.getItem(k)||JSON.stringify(f))}catch{return f}};
-const save=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
-function getProjects(){return load(KEYS.projects,[])}
-function setProjects(v){save(KEYS.projects,v);renderAll()}
-function activeId(){return localStorage.getItem(KEYS.active)||""}
-function activeProject(){return getProjects().find(p=>p.id===activeId())||null}
-function ensureProject(){let p=activeProject();if(p)return p;const projects=getProjects();p={id:uid(),name:"Mój pierwszy projekt",format:"8.5x11",language:"en",createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),pages:[]};projects.unshift(p);save(KEYS.active,p.id);setProjects(projects);return p}
-function createProject(){const name=prompt("Nazwa projektu:","Nowa książka");if(!name)return;const settings=load(KEYS.settings,{format:"8.5x11",language:"en"});const p={id:uid(),name:name.trim(),format:settings.format,language:settings.language,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),pages:[]};const list=getProjects();list.unshift(p);save(KEYS.active,p.id);setProjects(list);show("home")}
-function updateActive(mutator){const list=getProjects(),i=list.findIndex(p=>p.id===activeId());if(i<0)return;mutator(list[i]);list[i].updatedAt=new Date().toISOString();setProjects(list)}
-function show(id){document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.id===id));document.querySelectorAll(".nav-btn").forEach(x=>x.classList.toggle("active",x.dataset.go===id));const titles={home:"Start",projects:"Projekty",create:"Utwórz stronę",cart:"Koszyk Feniksa",settings:"Ustawienia",maze:"Maze Studio"};document.querySelector("#headerTitle").textContent=titles[id]||"FENIX Mobile";document.querySelector("#headerAction").style.display=id==="maze"?"none":"block";scrollTo(0,0);if(id==="maze")regenerate(false)}
-function renderHome(){const list=getProjects(),pages=list.reduce((n,p)=>n+p.pages.length,0),p=activeProject();document.querySelector("#statProjects").textContent=list.length;document.querySelector("#statPages").textContent=pages;const box=document.querySelector("#recentProject");box.innerHTML=p?`<div class="project-card"><div class="project-title"><div><div class="project-name">${escapeHtml(p.name)}</div><span class="badge">Aktywny projekt</span></div><small>${p.format} · ${p.language.toUpperCase()}</small></div><div class="progress"><span style="width:${Math.min(100,p.pages.length*5)}%"></span></div><div class="muted">${p.pages.length} stron w Koszyku</div><div class="button-row"><button class="primary" data-go="create">Dodaj stronę</button><button class="secondary" data-go="cart">Otwórz Koszyk</button></div></div>`:`<div class="empty">Nie masz jeszcze projektu.<br><br><button class="primary" id="firstProject">Utwórz pierwszy projekt</button></div>`;const fp=document.querySelector("#firstProject");if(fp)fp.onclick=createProject;wireNavigation()}
-function renderProjects(){const list=getProjects(),box=document.querySelector("#projectList");box.innerHTML=list.length?list.map(p=>`<div class="list-row"><div><strong>${escapeHtml(p.name)}</strong><br><small>${p.pages.length} stron · ${p.format} · ${new Date(p.updatedAt).toLocaleDateString()}</small></div><button class="${p.id===activeId()?"primary":"secondary"}" data-project="${p.id}">${p.id===activeId()?"Aktywny":"Otwórz"}</button></div>`).join(""):`<div class="empty">Brak projektów.</div>`;box.querySelectorAll("[data-project]").forEach(b=>b.onclick=()=>{save(KEYS.active,b.dataset.project);renderAll();show("home")})}
-function renderCart(){const p=activeProject(),pages=p?p.pages:[],box=document.querySelector("#cartList");document.querySelector("#cartHeading").textContent=`${pages.length} stron${p?` · ${p.name}`:""}`;box.innerHTML=pages.length?pages.map((x,i)=>`<div class="list-row"><div><strong>${i+1}. ${escapeHtml(x.title)}</strong><br><small>${x.module} · ${x.settings.cols}×${x.settings.rows} · seed ${x.seed}</small></div><button class="secondary" data-remove="${x.id}">Usuń</button></div>`).join(""):`<div class="empty">Koszyk jest pusty.</div>`;box.querySelectorAll("[data-remove]").forEach(b=>b.onclick=()=>updateActive(p=>p.pages=p.pages.filter(x=>x.id!==b.dataset.remove)))}
-function renderAll(){renderHome();renderProjects();renderCart()}
-function exportMobile(){const p=activeProject();if(!p||!p.pages.length){alert("Koszyk aktywnego projektu jest pusty.");return}const data={type:"FENIX_MOBILE_PROJECT",formatVersion:2,project:{id:p.id,name:p.name,format:p.format,language:p.language},createdAt:new Date().toISOString(),pages:p.pages};const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.download=`${p.name.replace(/[^a-z0-9-_]+/gi,"-").toLowerCase()||"fenix-project"}.fenixmobile`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
-function escapeHtml(s){return String(s).replace(/[&<>\"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]))}
-function wireNavigation(){document.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>show(b.dataset.go));document.querySelectorAll("[data-open-module=maze]").forEach(b=>b.onclick=()=>{ensureProject();show("maze")})}
-const canvas=document.querySelector("#mazeCanvas"),ctx=canvas.getContext("2d"),colsInput=document.querySelector("#cols"),rowsInput=document.querySelector("#rows"),lineWidthInput=document.querySelector("#lineWidth"),titleInput=document.querySelector("#pageTitle"),mazeStatus=document.querySelector("#mazeStatus"),seedLabel=document.querySelector("#seedLabel");let currentSeed=Date.now()>>>0,currentMaze=null;
-function rnd(seed){return function(){let t=seed+=0x6D2B79F5;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
-function clamp(v,min,max,f){const n=parseInt(v,10);return Number.isFinite(n)?Math.min(max,Math.max(min,n)):f}
-function buildMaze(cols,rows,seed){const random=rnd(seed),cells=Array.from({length:rows},()=>Array.from({length:cols},()=>({v:false,w:[true,true,true,true]}))),stack=[[0,0]],dirs=[[0,-1,0,2],[1,0,1,3],[0,1,2,0],[-1,0,3,1]];cells[0][0].v=true;while(stack.length){const[x,y]=stack[stack.length-1],choices=[];for(const[dx,dy,wall,opposite]of dirs){const nx=x+dx,ny=y+dy;if(nx>=0&&ny>=0&&nx<cols&&ny<rows&&!cells[ny][nx].v)choices.push([nx,ny,wall,opposite])}if(!choices.length){stack.pop();continue}const[nx,ny,wall,opposite]=choices[Math.floor(random()*choices.length)];cells[y][x].w[wall]=false;cells[ny][nx].w[opposite]=false;cells[ny][nx].v=true;stack.push([nx,ny])}cells[0][0].w[3]=false;cells[rows-1][cols-1].w[1]=false;return{cols,rows,cells,seed}}
-function drawMaze(m){const{cols,rows,cells}=m,marginX=80,top=170,bottom=90,areaW=canvas.width-marginX*2,areaH=canvas.height-top-bottom,cell=Math.min(areaW/cols,areaH/rows),mazeW=cell*cols,mazeH=cell*rows,startX=(canvas.width-mazeW)/2,startY=top+(areaH-mazeH)/2;ctx.fillStyle="#fff";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="#111827";ctx.textAlign="center";ctx.font="700 42px Arial";ctx.fillText(titleInput.value.trim()||"Find the Way!",canvas.width/2,82);ctx.strokeStyle="#111827";ctx.lineWidth=Number(lineWidthInput.value);ctx.beginPath();for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){const px=startX+x*cell,py=startY+y*cell,w=cells[y][x].w;if(w[0]){ctx.moveTo(px,py);ctx.lineTo(px+cell,py)}if(w[1]){ctx.moveTo(px+cell,py);ctx.lineTo(px+cell,py+cell)}if(w[2]){ctx.moveTo(px,py+cell);ctx.lineTo(px+cell,py+cell)}if(w[3]){ctx.moveTo(px,py);ctx.lineTo(px,py+cell)}}ctx.stroke()}
-function regenerate(newSeed=true){const cols=clamp(colsInput.value,6,45,18),rows=clamp(rowsInput.value,8,58,24);colsInput.value=cols;rowsInput.value=rows;if(newSeed)currentSeed=(Date.now()+Math.floor(Math.random()*1e9))>>>0;currentMaze=buildMaze(cols,rows,currentSeed);drawMaze(currentMaze);seedLabel.textContent=`Seed: ${currentSeed}`;mazeStatus.textContent="Labirynt wygenerowany"}
-function addMaze(){ensureProject();updateActive(p=>p.pages.push({id:uid(),module:"maze-studio",title:titleInput.value.trim()||"Maze",seed:currentSeed,settings:{cols:currentMaze.cols,rows:currentMaze.rows,lineWidth:Number(lineWidthInput.value)},createdAt:new Date().toISOString()}));mazeStatus.textContent="Dodano do Koszyka";show("cart")}
-document.querySelector("#headerAction").onclick=createProject;document.querySelector("#quickExport").onclick=exportMobile;document.querySelector("#exportMobile").onclick=exportMobile;document.querySelector("#clearCart").onclick=()=>{if(confirm("Wyczyścić Koszyk aktywnego projektu?"))updateActive(p=>p.pages=[])};document.querySelector("#newVariant").onclick=()=>regenerate(true);document.querySelector("#addToCart").onclick=addMaze;[colsInput,rowsInput].forEach(i=>i.onchange=()=>regenerate(true));lineWidthInput.oninput=()=>currentMaze&&drawMaze(currentMaze);titleInput.oninput=()=>currentMaze&&drawMaze(currentMaze);document.querySelector("#saveSettings").onclick=()=>{save(KEYS.settings,{format:document.querySelector("#defaultFormat").value,language:document.querySelector("#defaultLanguage").value});alert("Ustawienia zapisane")};const settings=load(KEYS.settings,{format:"8.5x11",language:"en"});document.querySelector("#defaultFormat").value=settings.format;document.querySelector("#defaultLanguage").value=settings.language;wireNavigation();renderAll();regenerate(false);
-</script>
+    <section id="view-settings" class="view">
+      <article class="card">
+        <p class="eyebrow">Ustawienia</p>
+        <h2>Preferencje aplikacji</h2>
+        <div class="field-grid">
+          <label>Domyślny format<select id="defaultFormat"><option value="8.5x11">8.5 × 11 cali</option><option value="A4">A4</option></select></label>
+          <label>Domyślny język<select id="defaultLanguage"><option value="en">Angielski</option><option value="pl">Polski</option></select></label>
+        </div>
+        <button id="saveSettings" class="primary">Zapisz ustawienia</button>
+        <p id="settingsStatus" class="muted"></p>
+      </article>
+    </section>
+
+    <section id="view-maze" class="view">
+      <article class="card preview">
+        <div class="toolbar"><span id="mazeStatus">Gotowy</span><span id="seedLabel">Seed: —</span></div>
+        <div class="canvas-wrap"><canvas id="mazeCanvas" width="900" height="1165"></canvas></div>
+      </article>
+      <article class="card">
+        <p class="eyebrow">Maze Studio</p>
+        <h2>Parametry labiryntu</h2>
+        <div class="field-grid">
+          <label>Kolumny<input id="cols" type="number" min="6" max="45" value="18"></label>
+          <label>Wiersze<input id="rows" type="number" min="8" max="58" value="24"></label>
+          <label>Grubość ścian<input id="lineWidth" type="range" min="2" max="12" value="5"></label>
+          <label>Tytuł strony<input id="pageTitle" type="text" value="Find the Way!" maxlength="80"></label>
+        </div>
+        <div class="module-actions">
+          <button id="duplicateMaze" class="secondary">Ten sam układ</button>
+          <button id="newVariant" class="primary">Nowy wariant</button>
+          <button id="downloadMaze" class="secondary">PNG</button>
+          <button id="addMazeToCart" class="primary wide">Dodaj do Koszyka Feniksa</button>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="active" data-view="home">⌂<br>Start</button>
+    <button data-view="projects">▣<br>Projekty</button>
+    <button data-view="create">＋<br>Utwórz</button>
+    <button data-view="cart">🛒<br>Koszyk</button>
+    <button data-view="settings">⚙<br>Ustawienia</button>
+  </nav>
+
+  <script type="module" src="js/app.js"></script>
 </body>
 </html>
