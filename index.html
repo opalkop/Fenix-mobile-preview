@@ -9,7 +9,7 @@
 </head>
 <body>
   <header class="topbar">
-    <div><p class="eyebrow">FENIX Mobile Studio · v0.4.0</p><h1 id="headerProject">Projekt</h1></div>
+    <div><p class="eyebrow">FENIX Mobile Studio · v0.5.0</p><h1 id="headerProject">Projekt</h1></div>
     <button class="icon-button" data-create-project aria-label="Nowy projekt">＋</button>
   </header>
 
@@ -24,6 +24,7 @@
         <p class="eyebrow">Ostatni projekt</p>
         <h2 id="activeProjectName">—</h2>
         <p id="activeProjectMeta" class="muted">—</p>
+        <div class="progress-track"><span id="homeProgress"></span></div>
         <div class="grid two">
           <button id="homeContinue" class="primary">Kontynuuj tworzenie</button>
           <button id="homeCart" class="secondary">Otwórz Koszyk</button>
@@ -32,7 +33,7 @@
       <div class="grid two">
         <button class="tile" data-view="projects"><span>📚</span><strong>Projekty</strong><small>Zarządzaj swoimi książkami</small></button>
         <button class="tile" data-view="create"><span>➕</span><strong>Utwórz stronę</strong><small>Wybierz moduł i dodaj stronę</small></button>
-        <button class="tile" data-view="cart"><span>🛒</span><strong>Koszyk Feniksa</strong><small>Kolejność i eksport do PC</small></button>
+        <button class="tile" data-view="cart"><span>🛒</span><strong>Koszyk Feniksa</strong><small>Miniatury, kolejność i eksport</small></button>
         <button class="tile" data-view="settings"><span>⚙️</span><strong>Ustawienia</strong><small>Format i język projektu</small></button>
       </div>
     </section>
@@ -61,9 +62,10 @@
 
     <section id="view-cart" class="view">
       <article class="card">
-        <p class="eyebrow">Koszyk Feniksa</p>
+        <p class="eyebrow">Koszyk Feniksa 2.0</p>
         <h2 id="cartProjectName">Projekt</h2>
         <p id="cartCount" class="muted">0 stron</p>
+        <p class="muted">Dotknij miniatury, aby ponownie edytować stronę.</p>
         <div id="cartList"></div>
         <div class="grid two">
           <button id="exportProject" class="primary">Przenieś do FENIX PC</button>
