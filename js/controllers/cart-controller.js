@@ -5,6 +5,8 @@ import{ModuleRegistry}from"../core/module-registry.js";
 import{renderPageThumbnail,renderPagePreview}from"../core/thumbnails.js";
 import{esc}from"../ui/helpers.js";
 
+if(!document.querySelector('link[data-preview-styles]')){const link=document.createElement("link");link.rel="stylesheet";link.href="css/preview.css";link.dataset.previewStyles="true";document.head.append(link)}
+
 export function createCartController({router,editors}){
   const box=document.querySelector("#cartList"),dialog=document.querySelector("#pagePreviewDialog"),previewCanvas=document.querySelector("#pagePreviewCanvas"),previewTitle=document.querySelector("#pagePreviewTitle"),previewMeta=document.querySelector("#pagePreviewMeta");
   let previewPage=null;
