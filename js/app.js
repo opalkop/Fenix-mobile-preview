@@ -4,6 +4,7 @@ import{EventBus,APP_EVENTS}from"./core/event-bus.js";
 import{createRouter}from"./core/router.js";
 import{createMazeStudio}from"./modules/maze.js";
 import{createColoringStudio}from"./modules/coloring.js";
+import{createTracingStudio}from"./modules/tracing.js";
 import{createProjectsController}from"./controllers/projects-controller.js";
 import{createCartController}from"./controllers/cart-controller.js";
 import{initSettingsAndTransfer}from"./controllers/settings-transfer-controller.js";
@@ -33,6 +34,7 @@ function renderShell(){
 const editors={};
 editors["maze-studio"]=createMazeStudio({onCartChange:renderShell});
 editors["coloring-studio"]=createColoringStudio({onCartChange:renderShell});
+editors["tracing-studio"]=createTracingStudio({onCartChange:renderShell});
 projectsController=createProjectsController({router});
 cartController=createCartController({router,editors});
 initSettingsAndTransfer({router});
