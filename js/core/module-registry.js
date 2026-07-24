@@ -16,7 +16,7 @@ export const ModuleRegistry={
 [
   {id:"maze-studio",name:"Maze Studio",view:"maze",status:"ready"},
   {id:"coloring-studio",name:"Coloring Studio",view:"coloring",status:"beta"},
-  {id:"tracing-studio",name:"Tracing Studio",view:"tracing"},
+  {id:"tracing-studio",name:"Tracing Studio",view:"tracing",status:"alpha"},
   {id:"matching-studio",name:"Matching Studio",view:"matching"},
   {id:"alphabet-studio",name:"Alphabet Studio",view:"alphabet"},
   {id:"math-studio",name:"Math Studio",view:"math"},
