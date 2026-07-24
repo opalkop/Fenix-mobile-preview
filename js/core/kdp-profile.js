@@ -1,0 +1,21 @@
+import{Storage,STORAGE_KEYS}from"./storage.js";
+
+export const KDP_DEFAULT_PROFILE={format:"8.5x11",language:"en",bleed:"none",pageCount:120,pageSide:"auto",dpi:300};
+const FORMATS={"8.5x11":{label:"8.5 × 11 cali",width:8.5,height:11},A4:{label:"A4",width:8.2677,height:11.6929}};
+
+export function getKdpProfile(){return{...KDP_DEFAULT_PROFILE,...Storage.read(STORAGE_KEYS.settings,KDP_DEFAULT_PROFILE)}}
+export function saveKdpProfile(profile){const value={...getKdpProfile(),...profile,pageCount:Math.max(24,Math.min(828,Number(profile.pageCount)||120)),dpi:300};Storage.write(STORAGE_KEYS.settings,value);return value}
+export function gutterInches(pageCount){const n=Number(pageCount)||120;if(n<=150)return.375;if(n<=300)return.5;if(n<=500)return.625;if(n<=700)return.75;return.875}
+export function kdpMetrics(profile=getKdpProfile(),canvas={width:900,height:1165}){const format=FORMATS[profile.format]||FORMATS["8.5x11"],bleed=profile.bleed==="bleed",outside=bleed?.375:.25,gutter=gutterInches(profile.pageCount),pxPerInX=canvas.width/format.width,pxPerInY=canvas.height/format.height;return{format,bleed,outside,gutter,pxPerInX,pxPerInY,safeSidePx:Math.ceil(Math.max(outside,gutter)*pxPerInX),safeTopPx:Math.ceil(outside*pxPerInY),safeBottomPx:Math.ceil(outside*pxPerInY),productionWidthPx:Math.round((format.width+(bleed?.125:0))*300),productionHeightPx:Math.round((format.height+(bleed?.25:0))*300)}}
+
+export function validateMazePage(page,profile=getKdpProfile(),canvas={width:900,height:1165}){const s=page.settings||{},m=kdpMetrics(profile,canvas),errors=[],warnings=[];const side=Number(s.sideMargin)||0,top=Number(s.topMargin)||0,bottom=Number(s.bottomMargin)||0,titleY=Number(s.titleY)||0,titleSize=Number(s.titleSize)||42;
+ if(side<m.safeSidePx)errors.push(`Margines boczny ${Math.round(side)} px jest mniejszy niż wymagane ${m.safeSidePx} px.`);
+ if(top<m.safeTopPx)errors.push(`Margines górny jest mniejszy niż strefa bezpieczna KDP (${m.safeTopPx} px).`);
+ if(bottom<m.safeBottomPx)errors.push(`Margines dolny jest mniejszy niż strefa bezpieczna KDP (${m.safeBottomPx} px).`);
+ if(titleY-titleSize<m.safeTopPx)errors.push("Tytuł wchodzi w górną strefę ryzyka przycięcia.");
+ if(s.showPageNumber&&28<m.safeBottomPx)errors.push("Numer strony jest zbyt blisko dolnej krawędzi dla wybranego profilu.");
+ if(s.frame&&s.frame!=="none")warnings.push("Ramka dekoracyjna dochodzi blisko krawędzi; FENIX PC musi odtworzyć ją według profilu KDP.");
+ if(profile.format==="A4")warnings.push("Podgląd mobilny ma proporcje 8,5 × 11; A4 zostanie dokładnie przeskalowane dopiero w FENIX PC.");
+ if(Number(s.lineWidth)<2)warnings.push("Ściany labiryntu mogą być zbyt cienkie po eksporcie.");
+ const status=errors.length?"error":warnings.length?"warning":"ok";return{status,errors,warnings,profile:{...profile},metrics:m,checkedAt:new Date().toISOString()}}
+export function kdpLabel(result){return result?.status==="ok"?"KDP OK":result?.status==="warning"?"KDP: ostrzeżenie":"KDP: błąd"}
