@@ -32,11 +32,16 @@ function renderShell(){
   document.querySelector("#headerProject").textContent=ProjectManager.ensure().name;
 }
 
+function afterEditorSave(){
+  renderShell();
+  requestAnimationFrame(()=>router.show("cart"));
+}
+
 const editors={};
-editors["maze-studio"]=createMazeStudio({onCartChange:renderShell});
-editors["coloring-studio"]=createColoringStudio({onCartChange:renderShell});
-editors["tracing-studio"]=createTracingStudio({onCartChange:renderShell});
-editors["logic-studio"]=createLogicStudio({onCartChange:renderShell});
+editors["maze-studio"]=createMazeStudio({onCartChange:renderShell,onSaved:afterEditorSave});
+editors["coloring-studio"]=createColoringStudio({onCartChange:renderShell,onSaved:afterEditorSave});
+editors["tracing-studio"]=createTracingStudio({onCartChange:renderShell,onSaved:afterEditorSave});
+editors["logic-studio"]=createLogicStudio({onCartChange:renderShell,onSaved:afterEditorSave});
 projectsController=createProjectsController({router});
 cartController=createCartController({router,editors});
 initSettingsAndTransfer({router});
