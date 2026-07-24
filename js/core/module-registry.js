@@ -22,5 +22,5 @@ export const ModuleRegistry={
   {id:"math-studio",name:"Math Studio",view:"math"},
   {id:"dot-to-dot-studio",name:"Dot to Dot Studio",view:"dot-to-dot"},
   {id:"hidden-objects-studio",name:"Hidden Objects Studio",view:"hidden-objects"},
-  {id:"logic-studio",name:"Logic Studio",view:"logic"}
+  {id:"logic-studio",name:"Logic Studio",view:"logic",status:"alpha"}
 ].forEach(module=>ModuleRegistry.register(module));
