@@ -2,7 +2,7 @@ import{ProjectManager}from"./core/projects.js";
 import{AppState}from"./core/app-state.js";
 import{EventBus,APP_EVENTS}from"./core/event-bus.js";
 import{createRouter}from"./core/router.js";
-import{createMazeStudio}from"./modules/maze.js?v=0.9.2-alpha8";
+import{createMazeStudio}from"./modules/maze.js?v=0.9.3-alpha9";
 import{createColoringStudio}from"./modules/coloring.js";
 import{createTracingStudio}from"./modules/tracing.js";
 import{createLogicStudio}from"./modules/logic.js";
