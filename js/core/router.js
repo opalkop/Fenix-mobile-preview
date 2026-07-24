@@ -1,5 +1,4 @@
 import{AppState}from"./app-state.js";
-import{EventBus,APP_EVENTS}from"./event-bus.js";
 
 export function createRouter(){
   const views=[...document.querySelectorAll(".view")];
@@ -12,10 +11,9 @@ export function createRouter(){
     views.forEach(view=>view.classList.toggle("active",view===target));
     buttons.forEach(button=>button.classList.toggle("active",button.dataset.view===name));
     if(scroll)window.scrollTo({top:0,behavior:"smooth"});
-    EventBus.emit(APP_EVENTS.VIEW_CHANGED,{view:name});
     return true;
   }
 
   buttons.forEach(button=>button.addEventListener("click",()=>show(button.dataset.view)));
-  return{show,current:()=>AppState.get?.().view||"home"};
+  return{show,current:()=>AppState.get("view")||"home"};
 }
