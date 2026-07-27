@@ -10,9 +10,11 @@ import{createProjectsController}from"./controllers/projects-controller.js";
 import{createCartController}from"./controllers/cart-controller.js?v=0.10.0-alpha9";
 import{initSettingsAndTransfer}from"./controllers/settings-transfer-controller.js?v=0.10.0-alpha9";
 import{initSettingsUi}from"./ui/settings-ui.js?v=0.10.3-alpha13";
+import{initDashboardV2}from"./ui/dashboard-v2.js?v=0.11.0-dashboard2";
 import{progressOf}from"./ui/helpers.js";
 const router=createRouter();let projectsController;let cartController;
 function renderHome(){const project=ProjectManager.ensure(),{count,goal,percent}=progressOf(project);document.querySelector("#activeProjectName").textContent=project.name;document.querySelector("#activeProjectMeta").textContent=`${count} / ${goal} stron · ${percent}%`;document.querySelector("#homeProgress").style.width=`${percent}%`;document.querySelector("#homeContinue").onclick=()=>router.show("create");document.querySelector("#homeCart").onclick=()=>router.show("cart")}
 function renderShell(){renderHome();projectsController?.render();cartController?.render();document.querySelector("#headerProject").textContent=ProjectManager.ensure().name}
 function afterEditorSave(){renderShell();requestAnimationFrame(()=>router.show("cart"))}
+initDashboardV2();
 const editors={};editors["maze-studio"]=createMazeStudio({onCartChange:renderShell,onSaved:afterEditorSave});editors["coloring-studio"]=createColoringStudio({onCartChange:renderShell,onSaved:afterEditorSave});editors["tracing-studio"]=createTracingStudio({onCartChange:renderShell,onSaved:afterEditorSave});editors["logic-studio"]=createLogicStudio({onCartChange:renderShell,onSaved:afterEditorSave});projectsController=createProjectsController({router});cartController=createCartController({router,editors});initSettingsAndTransfer({router});initSettingsUi();[APP_EVENTS.PROJECT_CREATED,APP_EVENTS.PROJECT_UPDATED,APP_EVENTS.PROJECT_DELETED,APP_EVENTS.PROJECT_ACTIVATED,APP_EVENTS.CART_CHANGED,APP_EVENTS.IMPORT_COMPLETED,APP_EVENTS.SETTINGS_CHANGED].forEach(event=>EventBus.on(event,renderShell));ProjectManager.ensure();AppState.markReady();renderShell();router.show("home",{scroll:false});
