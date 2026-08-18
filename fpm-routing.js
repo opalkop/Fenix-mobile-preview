@@ -20,30 +20,64 @@
     if(!raw){console.warn("FPM: nie znaleziono strony",id);return false;}
     const target=targetFor(raw);
     if(!target){console.warn("FPM: brak edytora dla strony",{id,module:moduleKey(raw)});return false;}
-    location.assign(target);
+    window.location.href=target;
     return true;
   }
 
   window.openFpmPage=openById;
 
-  // One stable fallback for the project list. The base FPM renderer may rebuild
-  // #pageList, so we delegate from the container instead of binding per-card handlers.
-  document.addEventListener("click",event=>{
+  function decorateCards(){
     const host=document.getElementById("pageList");
-    if(!host||!host.contains(event.target))return;
-    const card=event.target.closest(".page");
-    if(!card||!host.contains(card))return;
-
-    const cards=[...host.querySelectorAll(".page")];
-    const index=cards.indexOf(card);
+    if(!host)return;
     const pages=FenixCore.getCart().map(FenixPageSchema.normalize);
-    const page=pages[index];
-    if(!page)return;
+    const cards=[...host.querySelectorAll(".page")];
+    cards.forEach((card,index)=>{
+      const page=pages[index];
+      if(!page)return;
+      const target=targetFor(page);
+      card.dataset.pageId=page.id;
+      card.dataset.pageModule=moduleKey(page);
+      if(!target){
+        card.dataset.editable="false";
+        card.style.cursor="default";
+        return;
+      }
+      card.dataset.editable="true";
+      card.style.cursor="pointer";
+      card.setAttribute("role","button");
+      card.setAttribute("tabindex","0");
+      card.onclick=event=>{
+        event.preventDefault();
+        event.stopPropagation();
+        window.location.href=target;
+      };
+      card.onkeydown=event=>{
+        if(event.key==="Enter"||event.key===" "){
+          event.preventDefault();
+          window.location.href=target;
+        }
+      };
+      // Mobile fallback: some WebViews have been unreliable with synthetic click
+      // on dynamically rebuilt cards. pointerup gives the card a direct navigation path.
+      card.onpointerup=event=>{
+        if(event.pointerType==="touch"){
+          event.preventDefault();
+          window.location.href=target;
+        }
+      };
+    });
+  }
 
-    const target=targetFor(page);
-    if(!target)return;
-    event.preventDefault();
-    event.stopImmediatePropagation();
-    location.assign(target);
-  },true);
+  const host=document.getElementById("pageList");
+  if(host){
+    const observer=new MutationObserver(()=>decorateCards());
+    observer.observe(host,{childList:true});
+  }
+
+  document.querySelectorAll('[data-view="pages"],[data-go="pages"]').forEach(btn=>{
+    btn.addEventListener("click",()=>setTimeout(decorateCards,0));
+  });
+  window.addEventListener("fenix-state-change",()=>setTimeout(decorateCards,0));
+  window.addEventListener("hashchange",()=>{if(location.hash==="#pages")setTimeout(decorateCards,0)});
+  setTimeout(decorateCards,0);
 })();
