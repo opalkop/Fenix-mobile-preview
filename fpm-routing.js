@@ -13,6 +13,7 @@
     if(module==="word-search-studio"||module.includes("word-search")||module==="ws")return `word-search.html?id=${id}`;
     if(module==="coloring-studio"||module.includes("coloring")||module.includes("colouring"))return `coloring.html?id=${id}`;
     if(module==="complete-picture"||module.includes("complete-picture"))return `complete-picture.html?id=${id}`;
+    if(module==="tracing-studio"||module.includes("tracing"))return `tracing.html?id=${id}`;
     return "";
   }
 
@@ -22,6 +23,7 @@
     if(module==="word-search-studio"||module.includes("word-search")||module==="ws")return "WS";
     if(module==="coloring-studio"||module.includes("coloring")||module.includes("colouring"))return "COL";
     if(module==="complete-picture"||module.includes("complete-picture"))return "CTP";
+    if(module==="tracing-studio"||module.includes("tracing"))return "TR";
     return module||"PAGE";
   }
 
@@ -48,7 +50,6 @@
       card.dataset.pageId=page.id;
       card.dataset.pageModule=moduleKey(page);
 
-      // Normalize the visible label/status after the legacy renderer has built the card.
       const title=card.querySelector("b");
       if(title)title.textContent=`${index+1}. ${shortLabel(page)} · ${page.title||"Untitled"}`;
       const smalls=[...card.querySelectorAll("small")];
