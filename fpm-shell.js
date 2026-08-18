@@ -1,5 +1,7 @@
 (()=>{
   const isWordSearch=/word-search\.html(?:$|[?#])/.test(location.href);
+  const isColoring=/coloring\.html(?:$|[?#])/.test(location.href);
+  const isModulePage=isWordSearch||isColoring;
   const body=document.body;
   if(!body)return;
 
@@ -17,8 +19,8 @@
       <div class="fpm-module-strip" role="list">
         <button data-shell-target="maze" role="listitem"><b>MAZE</b><span>Maze Studio</span></button>
         <button data-shell-target="word-search" role="listitem"><b>WS</b><span>Word Search</span></button>
+        <button data-shell-target="coloring" role="listitem"><b>COL</b><span>Coloring</span></button>
         <button class="soon" disabled role="listitem"><b>▤</b><span>Book Builder</span><em>WKRÓTCE</em></button>
-        <button class="soon" disabled role="listitem"><b>COL</b><span>Coloring</span><em>PÓŹNIEJ</em></button>
         <button class="soon" disabled role="listitem"><b>TR</b><span>Tracing</span><em>PÓŹNIEJ</em></button>
       </div>
     </div>`;
@@ -35,17 +37,18 @@
     handle.setAttribute('aria-expanded',String(open));
     content.setAttribute('aria-hidden',String(!open));
   }
-  function autoClose(delay=260){
-    clearTimeout(autoTimer);
-    autoTimer=setTimeout(()=>setOpen(false),delay);
-  }
+  function autoClose(delay=260){clearTimeout(autoTimer);autoTimer=setTimeout(()=>setOpen(false),delay)}
   function go(target){
     autoClose();
     if(target==='word-search'){
       if(!isWordSearch)setTimeout(()=>location.href='word-search.html',180);
       return;
     }
-    if(isWordSearch){
+    if(target==='coloring'){
+      if(!isColoring)setTimeout(()=>location.href='coloring.html',180);
+      return;
+    }
+    if(isModulePage){
       setTimeout(()=>{location.href=target==='home'?'index.html':`index.html#${target}`},180);
       return;
     }
@@ -57,7 +60,7 @@
   handle.addEventListener('click',()=>setOpen(!open));
   bar.querySelectorAll('[data-shell-target]').forEach(btn=>btn.addEventListener('click',()=>go(btn.dataset.shellTarget)));
 
-  if(!isWordSearch&&location.hash){
+  if(!isModulePage&&location.hash){
     const target=location.hash.slice(1);
     if(['home','assets','pages','maze'].includes(target))setTimeout(()=>go(target),0);
   }
